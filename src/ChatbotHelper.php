@@ -71,11 +71,22 @@ class ChatbotHelper
      * @param string $message
      * @return string
      */
-    public function getAnswer($message, $api = null)
+    public function getAnswer($message, $api = null, $senderId)
     {
 
         if ($api === 'dialogflow') {
-            return $this->chatbotAI->getDialogflowAnswer($message);
+            $result = $this->chatbotAI->getDialogflowAnswer($message);
+
+            if ($result == "human") {
+                $this->facebookSend->handOverToHuman($this->accessToken, $senderId);
+                return "Somebody will help you in the shortest time. Please leave a message bellow with your request.";
+            } elseif (strpos($result,"search:") === 0) {
+                $q = urlencode(substr($result, strpos($result, "search:" ) + 8));
+                return "Here you go: https://www.tradus.com/en/search/?query=".$q;
+            }
+
+            return $result;
+
         } elseif ($api === 'rates') {
             return $this->chatbotAI->getForeignExchangeRateAnswer($message);
         } else {

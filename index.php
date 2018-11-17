@@ -26,7 +26,7 @@ if ($senderId && $chatbotHelper->isMessage($input)) {
 
     // Example 3: If you want to use a bot platform like Dialogflow
     // Don't forget to place your Dialogflow Client access token in the .env file
-    $replyMessage = $chatbotHelper->getAnswer($message, 'dialogflow');
+    $replyMessage = $chatbotHelper->getAnswer($message, 'dialogflow', $senderId);
 
     // Send the answer back to the Facebook chat
     $chatbotHelper->send($senderId, $replyMessage);

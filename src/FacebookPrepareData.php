@@ -22,4 +22,15 @@ class FacebookPrepareData
             }
         }';
     }
+
+    public function handToHuman($senderId)
+    {
+        return '{
+              "recipient" : {
+                  "id" : "' . $senderId . '" 
+              },
+              "target_app_id" : 263902037430900,
+              "metadata" : "Human action is required" 
+         }';
+    }
 }

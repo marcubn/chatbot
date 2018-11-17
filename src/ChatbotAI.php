@@ -84,4 +84,9 @@ class ChatbotAI
         return $this->foreignExchangeRate->getRates($message);
     }
 
+    public function handOver($message)
+    {
+
+    }
+
 }
